@@ -1,7 +1,7 @@
 [project]
 name = "cli-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "A hand-rolled CLI AI agent in Python, no framework"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

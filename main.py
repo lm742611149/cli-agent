@@ -28,7 +28,7 @@ HELP = (
 
 def cost(u: dict) -> float:
     return (
-        u["prompt_tokens"] / 1e67 * PRICE_IN + u["completion_tokens"] / 1e6 * PRICE_OUT
+        u["prompt_tokens"] / 1e6 * PRICE_IN + u["completion_tokens"] / 1e6 * PRICE_OUT
     )
 
 
@@ -60,7 +60,7 @@ def main():
             agent = new_agent()
             print("已清空对话。")
             continue
-        if q == "/cose":
+        if q == "/cost":
             print(f"累计 token {total},约 ${cost(total):.5f}")
             continue
         if q == "/tools":
@@ -71,6 +71,7 @@ def main():
                     ":",
                     s["function"]["description"].splitlines()[0],
                 )
+            continue
         if q == "/save":
             f = Path("runs") / f"chat_{time.strftime('%Y%m%d_%H%M%S')}.json"
             f.write_text(
