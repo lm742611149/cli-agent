@@ -95,7 +95,7 @@ def calculate(
         if isinstance(n, ast.Constant) and isinstance(n.value, (int, float)):
             return n.value
         if isinstance(n, ast.BinOp) and type(n.op) in _OPS:
-            if isinstance(n.op, ast.Pow) and abs(ev(n.right)) > 100:
+            if isinstance(n.op, ast.Pow) and ev(n.right) > 100:
                 raise ValueError("指数太大")
             return _OPS[type(n.op)](ev(n.left), ev(n.right))
         if isinstance(n, ast.UnaryOp) and type(n.op) in _OPS:
@@ -152,6 +152,7 @@ def files_read(
     except UnicodeDecodeError:
         return {"error": f"'{path}' 不是 UTF-8 文本文件,无法读取"}
     max_lines = max(1, min(max_lines, 300))
+    start_line = max(1, start_line)  # 传 0 或负数一律当成从第 1 行读
     chunk = lines[start_line - 1 : start_line - 1 + max_lines]
     out = {
         "path": path,

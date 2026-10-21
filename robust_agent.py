@@ -122,6 +122,7 @@ class RobustAgent:
             answer = (
                 f"抱歉,这个问题暂时没能处理完({type(e).__name__}),已转给人工同事跟进。"
             )
+        self.messages.append({"role": "assistant", "content": answer})  # 收尾的回答也进历史,日志和下一轮对话才完整
         return AgentResult(answer, status, step, dict(self.usage), needs_human=True)
 
     @staticmethod
